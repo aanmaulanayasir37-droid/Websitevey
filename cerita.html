@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Cerita</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 15px;
+            /* Latar belakang anime */
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #000000;
+            color: #ffffff;
+            font-family: sans-serif;
+        }
+
+        /* Navigasi Baris Atas */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        /* Tombol Kembali & Tambah - Tema Hitam Putih */
+        .btn-kembali, .btn-tambah {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #ffffff;
+            background-color: #000000;
+            color: #ffffff;
+            transition: 0.3s;
+        }
+
+        .btn-kembali:hover, .btn-tambah:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Judul Halaman */
+        h1 {
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.9);
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 8px;
+            display: inline-block;
+        }
+
+        /* Formulir Tambah Cerita (Tema Hitam Putih) */
+        .form-container {
+            display: none; /* Muncul saat tombol + Klik */
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 25px;
+            border: 1px solid #ffffff;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+        }
+
+        .form-group {
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+            color: #dddddd;
+        }
+
+        .form-group input, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            box-sizing: border-box;
+            border-radius: 4px;
+            border: 1px solid #666666;
+            background-color: #111111;
+            color: #ffffff;
+            font-family: inherit;
+        }
+
+        .form-group input:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #ffffff;
+        }
+
+        /* Tombol Kirim Cerita */
+        .btn-kirim {
+            padding: 10px 20px;
+            background-color: #ffffff;
+            color: #000000;
+            border: 1px solid #ffffff;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-kirim:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Box Tampilan Cerita */
+        .cerita-box {
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            line-height: 1.6;
+            border: 1px solid #ffffff;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
+        }
+
+        .cerita-box h2 {
+            margin-top: 0;
+            color: #ffffff;
+        }
+
+        .penulis {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: -8px;
+            margin-bottom: 15px;
+            border-bottom: 1px dashed #444444;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Baris Tombol Atas (Monokrom) -->
+    <div class="top-nav">
+        <!-- Kiri: Tombol Kembali -->
+        <a href="Coba.html">
+            <button class="btn-kembali">Kembali ke Utama</button>
+        </a>
+
+        <!-- Kanan: Tombol Tambah Cerita -->
+        <button class="btn-tambah" onclick="toggleForm()">+ Tambah Cerita</button>
+    </div>
+
+    <h1>Baca Cerita</h1>
+
+    <!-- Form Input Cerita Baru -->
+    <div id="formCerita" class="form-container">
+        <h3 style="margin-top:0;">Tulis Cerita Kamu</h3>
+        <div class="form-group">
+            <label>Nama Penulis:</label>
+            <input type="text" id="inputNama" placeholder="Nama / Penulis">
+        </div>
+        <div class="form-group">
+            <label>Judul Cerita:</label>
+            <input type="text" id="inputJudul" placeholder="Judul cerita kamu">
+        </div>
+        <div class="form-group">
+            <label>Isi Cerita:</label>
+            <textarea id="inputIsi" rows="5" placeholder="Tuliskan cerita lengkap kamu di sini..."></textarea>
+        </div>
+        <button class="btn-kirim" onclick="tambahCerita()">Kirim Cerita</button>
+    </div>
+
+    <!-- Daftar Cerita -->
+    <div id="daftarCerita">
+        <!-- Contoh Cerita 1 -->
+        <div class="cerita-box">
+            <h2>Judul Cerita 1</h2>
+            <div class="penulis">Oleh: Admin</div>
+            <p>Tuliskan cerita atau novel kamu di sini...</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Interaktif -->
+    <script>
+        function toggleForm() {
+            var form = document.getElementById("formCerita");
+            if (form.style.display === "block") {
+                form.style.display = "none";
+            } else {
+                form.style.display = "block";
+            }
+        }
+
+        function tambahCerita() {
+            var nama = document.getElementById("inputNama").value;
+            var judul = document.getElementById("inputJudul").value;
+            var isi = document.getElementById("inputIsi").value;
+
+            if (nama.trim() === "" || judul.trim() === "" || isi.trim() === "") {
+                alert("Harap isi semua kolom!");
+                return;
+            }
+
+            var divBaru = document.createElement("div");
+            divBaru.className = "cerita-box";
+            divBaru.innerHTML = "<h2>" + judul + "</h2>" +
+                                "<div class='penulis'>Oleh: " + nama + "</div>" +
+                                "<p>" + isi.replace(/\n/g, "<br>") + "</p>";
+
+            var container = document.getElementById("daftarCerita");
+            container.insertBefore(divBaru, container.firstChild);
+
+            document.getElementById("inputNama").value = "";
+            document.getElementById("inputJudul").value = "";
+            document.getElementById("inputIsi").value = "";
+            toggleForm();
+        }
+    </script>
+
+</body>
+</html>

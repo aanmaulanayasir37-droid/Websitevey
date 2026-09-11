@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Komunitas LLT - Informasi</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #000000;
+            color: #ffffff;
+            padding: 15px;
+        }
+
+        /* Navigasi Baris Atas */
+        .top-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-kembali {
+            padding: 8px 16px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            border-radius: 6px;
+            border: 1px solid #ffffff;
+            background-color: #000000;
+            color: #ffffff;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-kembali:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Tombol Garis 3 */
+        .btn-menu {
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            font-size: 20px;
+            padding: 4px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+            line-height: 1;
+        }
+
+        .btn-menu:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Overlay Gelap */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 998;
+            display: none;
+            backdrop-filter: blur(3px);
+        }
+
+        /* Sidebar Navigasi */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -280px;
+            width: 250px;
+            height: 100%;
+            background-color: rgba(12, 12, 12, 0.98);
+            border-right: 1px solid #333333;
+            box-shadow: 4px 0 15px rgba(0, 0, 0, 0.9);
+            z-index: 999;
+            transition: 0.3s ease-in-out;
+            padding: 20px 15px;
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333333;
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+        }
+
+        .sidebar-header h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            color: #aaaaaa;
+            font-size: 20px;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .btn-close:hover {
+            color: #ffffff;
+        }
+
+        .sidebar-links {
+            list-style: none;
+        }
+
+        .sidebar-links li {
+            margin-bottom: 6px;
+        }
+
+        .sidebar-links a {
+            display: block;
+            padding: 10px 12px;
+            color: #dddddd;
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 6px;
+            transition: 0.2s;
+        }
+
+        .sidebar-links a:hover, .sidebar-links a.active {
+            background-color: #222222;
+            color: #ffffff;
+            font-weight: 600;
+        }
+
+        /* Card Komunitas */
+        .card {
+            background-color: rgba(15, 15, 15, 0.9);
+            border: 1px solid #333333;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.8);
+        }
+
+        .community-header {
+            text-align: center;
+        }
+
+        .community-header h1 {
+            font-size: 24px;
+            font-weight: 800;
+            margin-bottom: 6px;
+            color: #ffffff;
+        }
+
+        .community-header p {
+            font-size: 13px;
+            color: #aaaaaa;
+            margin-bottom: 16px;
+        }
+
+        /* Box User Klik Ubah Nama */
+        .user-box {
+            background-color: #000000;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 10px 14px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 12px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .user-box:hover {
+            border-color: #ffffff;
+            background-color: #111111;
+        }
+
+        .user-card {
+            background-color: #121212;
+            border: 1px solid #333333;
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 16px;
+            text-align: left;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .user-card:hover {
+            border-color: #ffffff;
+        }
+
+        .badge-status {
+            display: inline-block;
+            font-size: 11px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .badge-status::before {
+            content: "• ";
+            color: #ffffff;
+        }
+
+        .user-card h3 {
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .user-card p {
+            font-size: 12px;
+            color: #888888;
+            margin: 0;
+        }
+
+        .btn-discord {
+            width: 100%;
+            padding: 12px;
+            background-color: #ffffff;
+            color: #000000;
+            font-weight: 700;
+            font-size: 15px;
+            border: 1px solid #ffffff;
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+            transition: 0.3s;
+        }
+
+        .btn-discord:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .nav-item {
+            background-color: rgba(15, 15, 15, 0.9);
+            border: 1px solid #333333;
+            border-radius: 12px;
+            padding: 12px 8px;
+            text-align: center;
+        }
+
+        .nav-item h4 {
+            font-size: 13px;
+            margin-bottom: 3px;
+        }
+
+        .nav-item p {
+            font-size: 10px;
+            color: #888888;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 14px;
+        }
+
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .topic-btn {
+            background-color: #121212;
+            border: 1px solid #333333;
+            border-radius: 8px;
+            padding: 10px 12px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
+        }
+
+        .admin-card {
+            background-color: #121212;
+            border: 1px solid #333333;
+            border-radius: 10px;
+            padding: 10px 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-avatar {
+            width: 36px;
+            height: 36px;
+            background-color: #222;
+            border: 1px solid #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .admin-info h4 {
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .role-badge {
+            display: inline-block;
+            font-size: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .role-owner {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        .role-admin {
+            background-color: #333333;
+            color: #ffffff;
+            border: 1px solid #666666;
+        }
+
+        .footer-link {
+            text-align: center;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 12px;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay -->
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+
+    <!-- Sidebar Navigasi -->
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Menu Navigasi</h3>
+            <button class="btn-close" onclick="closeSidebar()">✕</button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="Coba.html">Beranda</a></li>
+            <li><a href="Profil.html">Profil Saya</a></li>
+            <li><a href="Video.html">Video Menu</a></li>
+            <li><a href="Cerita.html">Cerita Menu</a></li>
+            <li><a href="Informasi.html" class="active">Informasi Komunitas</a></li>
+        </ul>
+    </div>
+
+    <!-- Nav Baris Atas -->
+    <div class="top-nav">
+        <a href="Coba.html" class="btn-kembali">← Kembali ke Utama</a>
+        <button class="btn-menu" onclick="openSidebar()">☰</button>
+    </div>
+
+    <!-- Card Top: Komunitas LLT -->
+    <div class="card">
+        <div class="community-header">
+            <h1>Komunitas LLT</h1>
+            <p>Tempat nongkrong, seru-seruan, dan diskusi bareng!</p>
+        </div>
+
+        <!-- Pencet untuk Ubah Nama -->
+        <div class="user-box" onclick="ubahNama()" title="Klik untuk ubah nama">
+            ✏️ <span class="nama-user-text">Vervey</span> (Klik Ubah)
+        </div>
+
+        <div class="user-card" onclick="ubahNama()" title="Klik untuk ubah nama">
+            <div class="badge-status">FUTURE MEMBER</div>
+            <h3 class="nama-user-text">Vervey</h3>
+            <p>Siap bergabung dengan komunitas LLT!</p>
+        </div>
+
+        <a href="https://discord.gg" target="_blank" class="btn-discord">
+            Join Discord LLT
+        </a>
+    </div>
+
+    <!-- Grid Navigasi -->
+    <div class="nav-grid">
+        <div class="nav-item">
+            <h4>ℹ️ Info</h4>
+            <p>Informasi seputar grup</p>
+        </div>
+        <div class="nav-item">
+            <h4>📜 Rules</h4>
+            <p>Aturan komunitas</p>
+        </div>
+        <div class="nav-item">
+            <h4>👥 Member</h4>
+            <p>Daftar anggota & role</p>
+        </div>
+    </div>
+
+    <!-- Topik Populer -->
+    <div class="card">
+        <div class="section-title">🎮 Game & Topik Populer</div>
+        <div class="grid-2col">
+            <div class="topic-btn">🎮 Mobile Legends</div>
+            <div class="topic-btn">🟥 Roblox</div>
+            <div class="topic-btn">🟩 Minecraft</div>
+            <div class="topic-btn">🎵 Music & Hangout</div>
+            <div class="topic-btn">🎨 Menggambar</div>
+            <div class="topic-btn">💻 Design/Edit</div>
+        </div>
+    </div>
+
+    <!-- Pengurus Server -->
+    <div class="card">
+        <div class="section-title">👑 Pengurus Server</div>
+        <div class="grid-2col">
+            <div class="admin-card">
+                <div class="admin-avatar">👑</div>
+                <div class="admin-info">
+                    <h4>vervey</h4>
+                    <span class="role-badge role-owner">Server Owner</span>
+                </div>
+            </div>
+            <div class="admin-card">
+                <div class="admin-avatar">🛡️</div>
+                <div class="admin-info">
+                    <h4>1Idlexyre</h4>
+                    <span class="role-badge role-admin">Head Admin</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-link">
+        🌐 Media Sosial Admin & Member
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").classList.add("active");
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").classList.remove("active");
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // Simpan & Muat Nama Pengguna
+        function loadNama() {
+            const savedName = localStorage.getItem("username") || "Vervey";
+            const elements = document.querySelectorAll(".nama-user-text");
+            elements.forEach(el => el.textContent = savedName);
+        }
+
+        function ubahNama() {
+            const currentName = localStorage.getItem("username") || "Vervey";
+            const newName = prompt("Masukkan nama baru kamu:", currentName);
+            if (newName && newName.trim() !== "") {
+                localStorage.setItem("username", newName.trim());
+                loadNama();
+            }
+        }
+
+        window.onload = loadNama;
+    </script>
+</body>
+</html>

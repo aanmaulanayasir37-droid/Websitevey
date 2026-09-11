@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kartu Tanda Anggota - Komunitas LLT</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-color: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 15px;
+        }
+
+        /* Container Pembungkus Luar */
+        .page-container {
+            width: 100%;
+            max-width: 420px;
+            background-color: rgba(15, 15, 15, 0.95);
+            border: 1px solid #333333;
+            border-radius: 20px;
+            padding: 18px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.9);
+            position: relative;
+            margin-top: 10px;
+        }
+
+        /* Tombol Menu Garis 3 */
+        .btn-menu {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 18px;
+            left: 18px;
+            line-height: 1;
+        }
+
+        /* Card Kartu Tanda Anggota */
+        .kta-card {
+            background-color: #0c0c0c;
+            border: 1px solid #ffffff;
+            border-radius: 16px;
+            padding: 18px 14px;
+            margin-top: 35px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
+
+        .kta-header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .kta-header h2 {
+            font-size: 15px;
+            font-weight: 800;
+            letter-spacing: 1.5px;
+            color: #ffffff;
+            margin-bottom: 2px;
+        }
+
+        .kta-header p {
+            font-size: 10px;
+            letter-spacing: 1px;
+            color: #aaaaaa;
+            font-weight: 600;
+        }
+
+        .divider {
+            border-top: 1px dashed #444444;
+            margin: 10px 0 14px 0;
+        }
+
+        /* Body KTA: Foto & Info */
+        .kta-body {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        /* Foto Profil & Tombol Ganti */
+        .photo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 85px;
+            flex-shrink: 0;
+        }
+
+        .photo-box {
+            width: 80px;
+            height: 80px;
+            border-radius: 10px;
+            border: 1px solid #ffffff;
+            overflow: hidden;
+            background-color: #1a1a1a;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-ganti-foto {
+            margin-top: 6px;
+            background-color: #1a1a1a;
+            border: 1px solid #666666;
+            color: #ffffff;
+            font-size: 9px;
+            font-weight: 700;
+            padding: 4px 6px;
+            border-radius: 6px;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+            transition: 0.2s;
+        }
+
+        .btn-ganti-foto:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Tabel Detail Anggota */
+        .info-table {
+            flex-grow: 1;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            font-size: 11px;
+            margin-bottom: 6px;
+            align-items: center;
+        }
+
+        .info-label {
+            color: #aaaaaa;
+            font-size: 10px;
+            font-weight: 600;
+        }
+
+        .info-value {
+            font-weight: 700;
+            color: #ffffff;
+            text-align: right;
+        }
+
+        .info-value.status-aktif {
+            color: #ffffff;
+            background-color: #222222;
+            padding: 1px 6px;
+            border-radius: 4px;
+            border: 1px solid #444444;
+        }
+
+        .info-value.clickable {
+            cursor: pointer;
+            text-decoration: underline dotted #ffffff;
+        }
+
+        /* Footer KTA: Card ID & Badge */
+        .kta-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 14px;
+            padding-top: 10px;
+            border-top: 1px solid #222222;
+        }
+
+        .official-tag {
+            font-size: 9px;
+            color: #888888;
+            letter-spacing: 0.5px;
+            font-weight: 600;
+        }
+
+        .badge-verified {
+            border: 1px solid #ffffff;
+            color: #000000;
+            background-color: #ffffff;
+            font-size: 9px;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 6px;
+        }
+
+        /* Tombol Kembali Ke Beranda */
+        .btn-beranda {
+            display: block;
+            width: 100%;
+            margin-top: 16px;
+            padding: 11px;
+            background-color: #000000;
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 13px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .btn-beranda:hover {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Footer Copyright */
+        .footer-text {
+            text-align: center;
+            font-size: 11px;
+            color: #888888;
+            margin-top: 16px;
+        }
+
+        .footer-text span {
+            color: #ffffff;
+        }
+
+        #fileInput {
+            display: none;
+        }
+
+        /* Overlay & Sidebar Navigasi */
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); z-index: 998; display: none;
+            backdrop-filter: blur(3px);
+        }
+
+        .sidebar {
+            position: fixed; top: 0; left: -280px; width: 250px; height: 100%;
+            background-color: rgba(12, 12, 12, 0.98); border-right: 1px solid #333333;
+            z-index: 999; transition: 0.3s; padding: 20px 15px;
+        }
+
+        .sidebar.active { left: 0; }
+
+        .sidebar-header {
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 1px solid #333; padding-bottom: 12px; margin-bottom: 15px;
+        }
+
+        .btn-close { background: none; border: none; color: #aaa; font-size: 20px; cursor: pointer; }
+
+        .sidebar-links { list-style: none; }
+        .sidebar-links li { margin-bottom: 6px; }
+        .sidebar-links a {
+            display: block; padding: 10px 12px; color: #dddddd; text-decoration: none;
+            font-size: 14px; border-radius: 6px;
+        }
+        .sidebar-links a.active, .sidebar-links a:hover { background-color: #222222; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- Overlay & Sidebar Navigasi -->
+    <div id="overlay" class="overlay" onclick="closeSidebar()"></div>
+    <div id="sidebar" class="sidebar">
+        <div class="sidebar-header">
+            <h3>Menu Navigasi</h3>
+            <button class="btn-close" onclick="closeSidebar()">✕</button>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="Coba.html">Beranda</a></li>
+            <li><a href="Profil.html" class="active">Profil Saya</a></li>
+            <li><a href="Video.html">Video Menu</a></li>
+            <li><a href="Cerita.html">Cerita Menu</a></li>
+            <li><a href="Informasi.html">Informasi Komunitas</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Container -->
+    <div class="page-container">
+        <!-- Tombol Hamburger -->
+        <button class="btn-menu" onclick="openSidebar()">☰</button>
+
+        <!-- Kartu Tanda Anggota Monokrom -->
+        <div class="kta-card">
+            <div class="kta-header">
+                <h2>KARTU TANDA ANGGOTA</h2>
+                <p>KOMUNITAS DISCORD LLT</p>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="kta-body">
+                <!-- Foto Profil -->
+                <div class="photo-section">
+                    <div class="photo-box">
+                        <img id="avatarImg" src="https://api.dicebear.com/7.x/bottts/svg?seed=Vervey" alt="Avatar">
+                    </div>
+                    <button class="btn-ganti-foto" onclick="triggerFileInput()">GANTI FOTO</button>
+                    <input type="file" id="fileInput" accept="image/*" onchange="uploadFoto(event)">
+                </div>
+
+                <!-- Info Anggota -->
+                <div class="info-table">
+                    <div class="info-row">
+                        <span class="info-label">NIK (ID)</span>
+                        <span class="info-value" id="nikDisplay">LLT-******</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">NAMA</span>
+                        <span class="info-value clickable" id="namaDisplay" onclick="ubahNama()" title="Klik untuk ubah nama">Vervey</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">STATUS</span>
+                        <span class="info-value status-aktif">MEMBER AKTIF</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">DOMISILI</span>
+                        <span class="info-value">SERVER DISCORD</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">BERLAKU</span>
+                        <span class="info-value">SEUMUR HIDUP</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="kta-footer">
+                <span class="official-tag">LLT OFFICIAL MEMBER CARD</span>
+                <span class="badge-verified">VERIFIED ✓</span>
+            </div>
+        </div>
+
+        <!-- Tombol Kembali -->
+        <a href="Informasi.html" class="btn-beranda">← Kembali ke Beranda</a>
+    </div>
+
+    <div class="footer-text">
+        © 2026 Komunitas LLT. Created with <span>🤍</span>
+    </div>
+
+    <script>
+        function openSidebar() {
+            document.getElementById("sidebar").classList.add("active");
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function closeSidebar() {
+            document.getElementById("sidebar").classList.remove("active");
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        // Fungsi Generate NIK Unik Permanen per Pengguna
+        function getOrGenerateNIK() {
+            let savedNIK = localStorage.getItem("userNIK");
+            if (!savedNIK) {
+                // Generate NIK 6 Angka Acak (misal LLT-734756)
+                const randomNum = Math.floor(100000 + Math.random() * 900000);
+                savedNIK = "LLT-" + randomNum;
+                localStorage.setItem("userNIK", savedNIK);
+            }
+            return savedNIK;
+        }
+
+        // Load Data dari LocalStorage
+        function loadData() {
+            // NIK Permanen
+            const userNIK = getOrGenerateNIK();
+            document.getElementById("nikDisplay").textContent = userNIK;
+
+            // Nama Pengguna
+            const savedName = localStorage.getItem("username") || "Vervey";
+            document.getElementById("namaDisplay").textContent = savedName;
+
+            // Foto Profil
+            const savedPhoto = localStorage.getItem("userPhoto");
+            if (savedPhoto) {
+                document.getElementById("avatarImg").src = savedPhoto;
+            }
+        }
+
+        // Ubah Nama Pengguna (NIK Tidak Akan Berubah)
+        function ubahNama() {
+            const currentName = localStorage.getItem("username") || "Vervey";
+            const newName = prompt("Masukkan nama baru kamu:", currentName);
+            if (newName && newName.trim() !== "") {
+                localStorage.setItem("username", newName.trim());
+                loadData();
+            }
+        }
+
+        function triggerFileInput() {
+            document.getElementById("fileInput").click();
+        }
+
+        function uploadFoto(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const photoBase64 = e.target.result;
+                    document.getElementById("avatarImg").src = photoBase64;
+                    localStorage.setItem("userPhoto", photoBase64);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        window.onload = loadData;
+    </script>
+</body>
+</html>
