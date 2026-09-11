@@ -2,87 +2,81 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0">
-    <title>Website Vervey - Baca Buku & Manga</title>
-    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Website Vervey</title>
     <style>
-        body {
+        * {
             margin: 0;
             padding: 0;
-            background-image: url('bg.png'); 
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            background-repeat: no-repeat;
-            background-color: #000000;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
         }
-        .hero {
-            padding: 10px;
-        }
-        
-        /* Style Tombol Monokrom (Hitam-Putih) */
-        .btn-theme {
-            padding: 8px 14px;
-            margin-right: 5px;
-            margin-bottom: 10px;
-            cursor: pointer;
-            border-radius: 4px;
-            border: 1px solid #ffffff;
+
+        body {
             background-color: #000000;
             color: #ffffff;
-            font-weight: bold;
-            transition: 0.3s;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
         }
 
-        .btn-theme:hover {
+        .container {
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border: 1px solid #333333;
+            padding: 25px;
+            border-radius: 12px;
+            background-color: #111111;
+        }
+
+        h1 {
+            font-size: 22px;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #222222;
+            color: #ffffff;
+            text-decoration: none;
+            border: 1px solid #444444;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.2s ease;
+        }
+
+        .menu-btn:hover {
             background-color: #ffffff;
             color: #000000;
-        }
-
-        .logo-web {
-            width: 100%;
-            height: auto;
-            display: block;
-            margin-bottom: 10px;
         }
     </style>
 </head>
 <body>
 
-    <header class="hero">
-        <!-- Tombol Logo Menu -->
-        <button id="theme-toggle" class="btn-theme">logo menu</button>
+    <div class="container">
+        <h1>Dashboard Utama</h1>
         
-        <!-- Tombol Video Menu -->
-        <a href="Video.html">
-            <button class="btn-theme">video menu</button>
-        </a>
-
-        <!-- Tombol Cerita Menu -->
-        <a href="Cerita.html">
-            <button class="btn-theme">cerita menu</button>
-        </a>
-
-        <!-- Tombol Informasi Menu (Baru) -->
-        <a href="Informasi.html">
-            <button class="btn-theme">informasi menu</button>
-        </a>
-
-        <!-- Daftar Gambar Manga -->
-        <img src="logo.png" alt="" class="logo-web">
-        <img src="logo1.png" alt="" class="logo-web">
-        <img src="logo2.png" alt="" class="logo-web">
-        <img src="logo3.png" alt="" class="logo-web">
-        <img src="logo4.png" alt="" class="logo-web">
-        <img src="logo5.png" alt="" class="logo-web">
-        <img src="logo6.png" alt="" class="logo-web">
-        <img src="logo7.png" alt="" class="logo-web">
-        <img src="logo8.png" alt="" class="logo-web">
-        <img src="logo9.png" alt="" class="logo-web">
-        <img src="logo10.png" alt="" class="logo-web">
-        <img src="logo11.png" alt="" class="logo-web">
-        <img src="logo12.png" alt="" class="logo-web">
-    </header>
+        <div class="menu-list">
+            <a href="video.html" class="menu-btn">VIDEO</a>
+            <a href="cerita.html" class="menu-btn">CERITA</a>
+            <a href="informasi.html" class="menu-btn">INFORMASI</a>
+        </div>
+    </div>
 
 </body>
 </html>
